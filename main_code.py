@@ -6,4 +6,15 @@ with open('data_files/pi_digits.txt') as file_object:
 
 import functions
 functions.greeting("Andi")
-print(functions.calculate(5))
+(A,B) = functions.calculate(5)
+print (A)
+print (B)
+
+import matplotlib.pyplot as plt
+#%matplotlib inline
+
+x = [i for i in range (11)]
+y = [i**2 for i in x]
+
+plt.plot(x,y) 
+plt.show()
