@@ -1,7 +1,13 @@
+# Python Crash course - Eric Matthes
+# Chapter 6: dictionaries
 # nested dictionary
 # friends dictionary
 # every friend is dictionary
 # some values can be list
+# using excel function to created nested dictionary "friends"
+# every key value pair is dictionary "username"
+# kvs: gender, first_name, family_name, dances
+# values of "dances" is list of max 3 dances
 
 Andi = {"gender": "m"}
 #print (Andi)
