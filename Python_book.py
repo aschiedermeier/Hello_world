@@ -12,11 +12,13 @@ def want_five(a):
         print("happy now")
 want_five(3)
 
-#list and count 10 millions
-#mil = [value for value in range(1,10000001)]
-#print(sum(mil))
+# list comprehension
+# list and count 10 millions
+# mil = [value for value in range(1,10000001)]
+# print(sum(mil))
 
-#list of random numbers, print missing numbers
+# for if
+# list of random numbers, print missing numbers
 import random as rn
 rands = [rn.randint(1,6)for value in range (1,11)]
 print (rands)
@@ -25,6 +27,8 @@ for i in range(1,11):
     if i  not in rands:
         print (i)
 
+
+# if elif else
 # points for shooting aliens
 def alien_shoot(alien):
     if alien == "green":
@@ -38,7 +42,8 @@ def alien_shoot(alien):
     print (points)
 alien_shoot("red")
 
-#print list elements, checks if list is empty
+# if else
+# print list elements, checks if list is empty
 def print_list (check_list):
     if check_list:
         for i in check_list:
@@ -49,6 +54,7 @@ a = []
 print_list(a)
 
 ###########################################
+# dictionary: creation, modification
 # define dictionary alien with one key-value-pair
 alien = {"color":"green"}
 # acces value
@@ -63,13 +69,15 @@ print (alien)
 del alien["color"]
 print(alien)
 
-# move function
+# dictionary modification example
+# function to change location: move creature
 def move_creature (creature):
     if creature["speed"]== "fast":
         creature ["location"]=creature ["location"]+2
     else:
         creature ["location"]=creature ["location"]+1
 
+# use if in range to loop command
 # move 5 times
 for i in range (1,6):
     move_creature(alien)
