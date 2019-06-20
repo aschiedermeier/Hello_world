@@ -1,41 +1,68 @@
-# Python Crash course - Eric Matthes
-# Chapter 6: dictionaries
-# nested dictionary
-# friends dictionary
-# every friend is dictionary
-# some values can be list
-# using excel function to created nested dictionary "friends"
-# every key value pair is dictionary "username"
-# kvs: gender, first_name, family_name, dances
-# values of "dances" is list of max 3 dances
+###########################################
+# Book "Python Crash course" - Eric Matthes
+# Chapter 6: Dictionaries
+###########################################
 
-Andi = {"gender": "m"}
-#print (Andi)
-#print (Andi["gender"])
+# dictionary: creation, modification
+# define dictionary alien with one key-value-pair
+alien = {"color":"green"}
+# acces value
+print (alien["color"])
+# add key-value-pair
+alien ["location"] = 0
+print (alien)
+# add more key-value-pairs
+alien.update({"speed":"medium","power":5})
+print (alien)
+# remove key-value-pair
+del alien["color"]
+print(alien)
 
-friends = {"AlexA":{"gender": "m"},}
-print (friends["AlexA"])
-for user_name,user_info in friends.items():
-    print (user_name)
-    print (user_info)
-    print (user_info["gender"])
-    
-# nested dictionary
-# friends dictionary
-# every friend is dictionary
-# some values can be list
+# dictionary modification example
+# function to change location: move creature
+def move_creature (creature):
+    if creature["speed"]== "fast":
+        creature ["location"]=creature ["location"]+2
+    else:
+        creature ["location"]=creature ["location"]+1
 
-# created dictionary using excel function
-friends={"AlexA":{"gender": "m","first_name": "Alex","family_name": "All","location": "Munich","dances":["Salsa","Bachata","Kizomba",]},"BertaB":{"gender": "f","first_name": "Berta","family_name": "Butt","location": "Munich","dances":["Salsa","","",]},"ChrisC":{"gender": "m","first_name": "Chris","family_name": "Cheese","location": "Paris","dances":["Salsa, ","Kizomba","",]},"DorisD":{"gender": "f","first_name": "Doris","family_name": "Done","location": "Prague","dances":["Zouk","Bachata","",]},}
+# use if in range to loop command
+# move 5 times
+for i in range (1,6):
+    move_creature(alien)
+print (alien)
 
-# have an extra look at the print out results below this line
-print ("\ncheck a look !!!\n".upper())
+# speed up
+alien ["speed"]="fast"
+print (alien)
+# move 5 more times, this time fast
+for i in range (1,6):
+    move_creature(alien)
+print (alien)
 
-for user_name,user_info in sorted(friends.items()):
-    #print (friends)
-    print ("\nUsername: " + str(user_name))
-    print ("\nuser_info: " + str(user_info))
-    print ("\nuser_info[gender]: " + str(user_info["gender"]))
-    print ("\nuser_info[family_name]: " + str(user_info["family_name"]))
-    print ("\nuser_info[first_name]: " + str(user_info["first_name"]))
-    print ("\nuser_info[dances]: " + str(user_info["dances"]))
+###########################
+# print out key-value-pairs of dictionary 
+for k,v in alien.items():
+    print ("\n"+k)
+    print (v)
+# print out keys, two methods
+for keys in alien.keys():
+    print (keys.title())
+for keys in alien:
+    print (keys.title())
+# print out values
+for values in alien.values():
+    print (values)
+
+##############################
+# print out values without doubles
+fav_food = {
+    "Andi":"Tofu",
+    "Berti":"Pizza",
+    "Carl":"Burger",
+    "Doris":"Pizza",
+    }
+# no doubles due to set method
+# sorted order
+for values in sorted(set(fav_food.values())):
+    print (values)
