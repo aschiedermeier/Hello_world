@@ -37,9 +37,17 @@ print (k.name)
 print (k.aspect)
 print (k.get_descriptive_name())
 
-#print (fire.get_descriptive_name())
 
+
+element_list = []
 for i in range(len(elements)):
     print (i)
+    key = sorted(elements)[i]
+    print (key)
+    value = elements[key]
+    print (value)
+    i = Element(key,value)
+    print (i.get_descriptive_name())
 
-print(elements[0])
+
+print (i.get_descriptive_name())
