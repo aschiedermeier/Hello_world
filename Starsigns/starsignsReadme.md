@@ -5,6 +5,28 @@ tool to understand and memorize starsigns
 defines classes for signs and elements
 https://cosmicnavigator.com/about/astrology/the-four-elements-and-three-modalities
 
+done:
+define element class
+define modality class
+define starsign class
+
+todo:
+basic riddle: 
+- tell me month of starsign
+- tell me element of starsign
+- tell me modality of starsign
+- tell me power and 
+
+real date attribute:
+- enter your date and i tell you the starsign
+- incorporate into riddle
+
+advanced riddle:
+- rememeber how many i had correct
+- rememebr which zodiacs i had most success
+- show me the harder ones more oftern
+- remember my stats and write in json.file.
+
 1	zodiac app
 1.	functionality
 a.	Enter data and receive star sign
