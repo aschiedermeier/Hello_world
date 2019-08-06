@@ -3,6 +3,7 @@
 my first personal project
 tool to understand and memorize starsigns
 defines classes for signs and elements
+https://cosmicnavigator.com/about/astrology/the-four-elements-and-three-modalities
 
 1	zodiac app
 1.	functionality
