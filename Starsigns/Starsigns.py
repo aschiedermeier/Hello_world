@@ -1,6 +1,10 @@
 # starsigns
 # tool to understand and momorize starsigns
 # startsigns class is subclass from classes modalities and elements
+# next step: 
+# method ask zodiac month, element and modality
+# 3 object attributes: answered right (def 0) & wrong (def 0) and learnfactor (def 0) sigmoid learn factor (def 0.5)
+# method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 
 class Element():
@@ -177,9 +181,44 @@ for i in StarsignList:
     print()
 
 
+# riddle
 
+# ask for month of Starsign
+import random as rn
+i = rn.randint(0,11)
 
+print ("When is the birthday of " + StarsignList[i].name + " ?")
+print (StarsignList[i].month)
+ans = input().title()
+ans = ans[0:3]
+if ans == StarsignList[i].month[0:3]:
+    print ("Yes, it's " + StarsignList[i].month)
+else:
+    print ("No, it's " + StarsignList[i].month)
 
+import random as rn
+i = rn.randint(0,11)
+print ("What is the element of " + StarsignList[i].name + " ?")
+print (StarsignList[i].element.name)
+ans = input()
+ans = ans[0:3]
+if ans == StarsignList[i].element.name[0:3]:
+    print ("Yes, it's " + StarsignList[i].element.name)
+else:
+    print ("No, it's " + StarsignList[i].element.name)
+
+import random as rn
+i = rn.randint(0,11)
+print ("What is the modality of " + StarsignList[i].name + " ?")
+print (StarsignList[i].modality.name)
+ans = input()
+ans = ans[0:3]
+if ans == StarsignList[i].modality.name[0:3]:
+    print ("Yes, it's " + StarsignList[i].modality.name)
+else:
+    print ("No, it's " + StarsignList[i].modality.name)
+    
+    
 
 """
 class Starsign (Element,Modality):
