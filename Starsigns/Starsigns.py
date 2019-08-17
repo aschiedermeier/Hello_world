@@ -1,14 +1,22 @@
 # starsigns
 # tool to understand and momorize starsigns
 # startsigns class is subclass from classes modalities and elements
+
+# bugs:
+# object list is somehow class list, as all objects share one list
+# try to program different calls in compiler to play with object lists
+
 # next step:
 
 
-# method ask zodiac month, element and modality
-# 3 object attributes: answered right (def 0) & wrong (def 0) and learnfactor (def 0) sigmoid learn factor (def 0.5)
+# method ask zodiac element and modality
+# learnfactor (def 0) sigmoid learn factor (def 0.5)
 # method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
-# done
+# done:
+# method ask month
+# 3 object attributes: recalled, correct and incorrect 
+# object list stats to collect correct and incorrect results
 # recall only 2 signs
 # ask how many to recall 
 # recall 5 times
@@ -93,12 +101,21 @@ for i in ModalityList:
 
 class Starsign ():
     '''class starsign with classes Element & Modality as attributes'''
-    def __init__(self,name = "",month=""):
+    def __init__(self,name = "",month="",recalled = 0,correct=0,incorrect=0,recall_list=[]):
         '''initialze name and aspect attributes'''
         self.name = name
         self.month = month
+        # how often recall method was used
+        self.recalled = recalled
+        # how often answered correctly
+        self.correct = correct
+        # how often answered incorrectly
+        self.incorrect = incorrect
+        # list of recall stats
+        self.recall_list=recall_list
         self.modality = Modality()
-        self.element = Element()   
+        self.element = Element()
+         
 
     def get_descriptive_name(self):
             '''return a neatly formatted name and desctiption'''
@@ -109,6 +126,12 @@ class Starsign ():
                 long_name = "The starsign " + self.name + " is born in " + self.month
                 return long_name
     
+    def get_recall_stats(self):
+        '''return how often been recalled: correct and incorrect'''
+        recall_stats = ("The starsign " + self.name + " has been recalled " + str(self.recalled) + " times.\nCorrect: " 
+        + str(self.correct) + "\nIncorrect: " + str(self.incorrect)+ "\nThe Stats: " + str(self.recall_list))
+        return recall_stats
+        
     def set_element(self,element):
         '''set the element of a starsign'''
         self.element = element
@@ -123,10 +146,15 @@ class Starsign ():
         print (self.month)
         ans = input().lower()
         ans = ans[0:3]
+        self.recalled += 1
         if ans == self.month[0:3]:
             print ("Yes, it's " + self.month)
+            self.correct += 1
+            self.recall_list.append(1)
         else:
             print ("No, it's " + self.month)
+            self.incorrect += 1
+            self.recall_list.append(-1)
 
 # define 12 starsign objects
 aries = Starsign("Aries","april")
@@ -175,25 +203,20 @@ for i in StarsignList:
     print(i.element.get_descriptive_name())
     print()
 
-
-
 """
-
-
 # recalling month of starsigns
-
 # ask how many starsigns to recall 
 entered = False
 while entered == False:
     try:
-        recall = int(input("Recall how many Starsigns? \n1-12: "))
+        signs = int(input("Recall how many Starsigns? \n1-12: "))
     except ValueError:
         print ("Error: wrong input")
         continue
     except : #catches ctrl-C error
         print ("No!")
         continue
-    if  not (1 <= recall <= 12):
+    if  not (1 <= signs <= 12):
         print ("Error: the value is not within permitted range (1-12)")
     else: 
         entered = True
@@ -215,25 +238,29 @@ while entered == False:
         entered = True
 """
 
-recall = 1
-rounds = 1
+signs = 2
+rounds = 5
 
 # Recall month of Starsign using recall method
-print("\n!!!recalling method!!!\n")
-#aries.recall_month()
+print("\n!!!recalling game!!!\n")
 
 import random as rn
 for r in range(rounds):
-    i = rn.randint(0,recall-1) # recall how many starsigns
-    print (r)
-    print (i)
+    i = rn.randint(0,signs-1) # recall how many starsigns
+    print ("round:", r)
+    print ("sign:",i)
+    print(StarsignList[i].get_recall_stats())
     StarsignList[i].recall_month()
+    print(StarsignList[i].get_recall_stats())
+    print()
 
+print("\n!!!recalling list!!!\n")
+print(aries.recall_list)
+print(taurus.recall_list)
 
 
 # recall elements and modality
 """
-
 # Recall element of Starsign
 import random as rn
 i = rn.randint(0,11)
