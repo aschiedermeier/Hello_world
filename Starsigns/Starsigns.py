@@ -1,11 +1,18 @@
 # starsigns
 # tool to understand and momorize starsigns
 # startsigns class is subclass from classes modalities and elements
-# next step: 
+# next step:
+
+
 # method ask zodiac month, element and modality
 # 3 object attributes: answered right (def 0) & wrong (def 0) and learnfactor (def 0) sigmoid learn factor (def 0.5)
 # method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
+# done
+# recall only 2 signs
+# ask how many to recall 
+# recall 5 times
+# ask how often recall
 
 class Element():
     ''' element class '''
@@ -70,6 +77,7 @@ class Modality():
         ''' set the the name of the modality'''
         self.name = name
 
+
 cardinal = Modality("cardinal")
 cardinal.set_power("initiation")
 
@@ -82,8 +90,6 @@ mutable = Modality("mutable","change")
 ModalityList = [cardinal,fixed,mutable]
 for i in ModalityList:
     print(i.get_descriptive_name())
-
-
 
 class Starsign ():
     '''class starsign with classes Element & Modality as attributes'''
@@ -110,7 +116,11 @@ class Starsign ():
     def set_modality(self,modality):
         '''set the modality of a starsign'''
         self.modality = modality 
-
+""" 
+    def recall_month(self,rounds=5, recall=3):
+        ''' recall month of starsign '''
+"""
+    
 aries = Starsign("Aries","april")
 print (aries.get_descriptive_name())
 aries.set_modality(cardinal)
@@ -170,8 +180,6 @@ pisces = Starsign("Pisces","March")
 pisces.set_modality(mutable)
 pisces.set_element(water)
 
-
-
 StarsignList = [aries,taurus,gemini,cancer,leo,virgo,libra,scorpio,sagittarius,capricorn,aquarius,pisces]
 print (len(StarsignList))
 for i in StarsignList:
@@ -181,90 +189,82 @@ for i in StarsignList:
     print()
 
 
-# riddle
+# 
 
-# ask for month of Starsign
+# Recall month of Starsign
 import random as rn
-i = rn.randint(0,11)
 
-print ("When is the birthday of " + StarsignList[i].name + " ?")
-print (StarsignList[i].month)
-ans = input().title()
-ans = ans[0:3]
-if ans == StarsignList[i].month[0:3]:
-    print ("Yes, it's " + StarsignList[i].month)
-else:
-    print ("No, it's " + StarsignList[i].month)
+# ask how many starsigns to recall 
+entered = False
+while entered == False:
+    try:
+        recall = int(input("Recall how many Starsigns? \n1-12: "))
+    except ValueError:
+        print ("Error: wrong input")
+        continue
+    except : #catches ctrl-C error
+        print ("No!")
+        continue
+    if  not (1 <= recall <= 12):
+        print ("Error: the value is not within permitted range (1-12)")
+    else: 
+        entered = True
 
+# ask how many rounds of recalling 
+entered = False
+while entered == False:
+    try:
+        rounds = int(input("Recall month of Starsign how often?  \n1-10: "))
+    except ValueError:
+        print ("Error: wrong input")
+        continue
+    except : #catches ctrl-C error
+        print ("No!")
+        continue
+    if  not (1 <= rounds <= 10):
+        print ("Error: the value is not within permitted range (1-10)")
+    else: 
+        entered = True
+
+
+for r in range(rounds):
+    i = rn.randint(0,recall-1) # recall how many starsigns
+    print ("When is the birthday of " + StarsignList[i].name + " ?")
+    print (StarsignList[i].month)
+    ans = input().lower()
+    ans = ans[0:3]
+    if ans == StarsignList[i].month[0:3]:
+        print ("Yes, it's " + StarsignList[i].month)
+    else:
+        print ("No, it's " + StarsignList[i].month)
+
+
+# recall elements and modality
+"""
+
+# Recall element of Starsign
 import random as rn
 i = rn.randint(0,11)
 print ("What is the element of " + StarsignList[i].name + " ?")
 print (StarsignList[i].element.name)
-ans = input()
+ans = input().lower()
 ans = ans[0:3]
 if ans == StarsignList[i].element.name[0:3]:
     print ("Yes, it's " + StarsignList[i].element.name)
 else:
     print ("No, it's " + StarsignList[i].element.name)
 
+# Recall modality of Starsign
 import random as rn
 i = rn.randint(0,11)
 print ("What is the modality of " + StarsignList[i].name + " ?")
 print (StarsignList[i].modality.name)
-ans = input()
+ans = input().lower()
 ans = ans[0:3]
 if ans == StarsignList[i].modality.name[0:3]:
     print ("Yes, it's " + StarsignList[i].modality.name)
 else:
     print ("No, it's " + StarsignList[i].modality.name)
     
-    
-
-"""
-class Starsign (Element,Modality):
-    '''class starsign subclass of Element & Modality'''
-    def __init__(self,name)
-
-    def __init__(self,make,model,year):
-        '''
-        Initialize attributes of the parent class.
-        Then initialize attributes specific to an electric car.
-        '''
-        super().__init__(make,model,year)
-        self.battery = Battery()
-
-
-
-elements = {"fire":"action & creativity",
-            "water":"emotions",
-            "air":"intellect",
-            "earth":"substance & practicality"}
-
-for k,v in elements.items():
-    print(k+ ": " + v)
-
-
-for k,v in elements.items():
-    print (k)
-    k = Element(k,v)
-
-print (k.name)
-print (k.aspect)
-print (k.get_descriptive_name())
-
-
-
-element_list = []
-for i in range(len(elements)):
-    print (i)
-    key = sorted(elements)[i]
-    print (key)
-    value = elements[key]
-    print (value)
-    i = Element(key,value)
-    print (i.get_descriptive_name())
-
-
-print (i.get_descriptive_name())
-
+   
 """
