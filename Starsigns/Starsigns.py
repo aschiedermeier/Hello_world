@@ -6,6 +6,7 @@
 
 # next step:
 
+# during recll game: check if score is 2: if less than 4 have below 2, then then add another item
 # if at least one value has recall list sum of plus 2, then add another element to quiz list
 
 # method ask zodiac element and modality
@@ -13,6 +14,8 @@
 # method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# during recall game: check if score is max: then kick out of list
+# if quiz_list is empty, give feedback that game is finished
 # make quiz list of 4 items to recall, in each round choose randomly from them
 # recall list is a 3 element stack list
 # fixed bug: recall list is now instance attribute, not class attribute. hat to be initiated with constructor
@@ -113,7 +116,7 @@ class Starsign ():
         # how often answered incorrectly
         self.incorrect = incorrect
         # list of recall stats, list length can be parameter for tuning later
-        self.recall_list=[0]*4
+        self.recall_list=[0]*2
         self.modality = Modality()
         self.element = Element()
          
@@ -242,30 +245,40 @@ while entered == False:
         entered = True
 """
 
-rounds = 6
-
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
 
-import random as rn
+
 # list containing elements to choose from
 # minumum 4 elements
 # add elements: if one element has grade 2
-# del element: if it has grade 4
+# del element: if it has top grade
 quiz_list=[] # list with object (hard to read, but callable)
 quiz_list_names=[] # list with object names (easy to read, but as str not usable)
-# add 4 starsigns
-while len(quiz_list) < 4:
+import random as rn
+# add 3 starsigns
+while len(quiz_list) < 2:
     i = rn.randint(0,len(StarsignList)-1)
     new_sign = StarsignList[i]#.name    
     if new_sign not in quiz_list:
         quiz_list.append(new_sign)
         quiz_list_names.append(new_sign.name)
-        
-print(quiz_list_names)
 
+rounds = 9
 for r in range(rounds):
-    i = rn.randint(0,len(quiz_list)-1) # recall how many starsigns
+    # delete items out of quiz_list, if grade is top
+    quiz_list = [i for i in quiz_list if sum(i.recall_list) != len(i.recall_list)]
+    # update quiz_list_names
+    quiz_list_names = []
+    for sign in quiz_list:
+        quiz_list_names.append(sign.name)   
+    print (quiz_list_names)
+    # game over, if quiz_list is empty
+    if len(quiz_list) == 0:
+        print("Wohoo, you have learnt all items!\n" + ":-) "*9)
+        break
+    # recall random sign out of quiz_list
+    i = rn.randint(0,len(quiz_list)-1) 
     print ("Round", r+1, "out of",rounds)
     print ("Starsign",i+1, "out of",len(quiz_list))
     print(quiz_list[i].get_recall_stats())
@@ -274,8 +287,8 @@ for r in range(rounds):
     print()
 
 print("\n!!!recalling list!!!\n")
-for sign in quiz_list:
-    print (sign.get_recall_stats())
+for sign in StarsignList:
+    print (sign.name, " --> Grade:", sum(sign.recall_list))
 
 
 # recall elements and modality
