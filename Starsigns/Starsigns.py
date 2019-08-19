@@ -6,7 +6,7 @@
 
 # next step:
 
-# make quiz list of 4 items to recall, choose randomly from them
+# make quiz list of 4 items to recall, in each round choose randomly from them
 # if at least one value has recall list sum of plus 2, then add another element to quiz list
 
 # method ask zodiac element and modality
