@@ -5,7 +5,7 @@
 # bugs:
 
 # next step:
-# recall list as a 3 element stack list
+
 # make quiz list of 4 items to recall, choose randomly from them
 # if at least one value has recall list sum of plus 2, then add another element to quiz list
 
@@ -14,6 +14,7 @@
 # method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# recall list is a 3 element stack list
 # fixed bug: recall list is now instance attribute, not class attribute. hat to be initiated with constructor
 # method ask month
 # 3 object attributes: recalled, correct and incorrect 
@@ -112,7 +113,7 @@ class Starsign ():
         # how often answered incorrectly
         self.incorrect = incorrect
         # list of recall stats
-        self.recall_list=[]
+        self.recall_list=[0,0,0]
         self.modality = Modality()
         self.element = Element()
          
@@ -129,7 +130,8 @@ class Starsign ():
     def get_recall_stats(self):
         '''return how often been recalled: correct and incorrect'''
         recall_stats = ("The starsign " + self.name + " has been recalled " + str(self.recalled) + " times.\nCorrect: " 
-        + str(self.correct) + "\nIncorrect: " + str(self.incorrect)+ "\nThe Stats: " + str(self.recall_list))
+        + str(self.correct) + "\t\tIncorrect: " + str(self.incorrect)+ "\nStats: " + str(self.recall_list)
+        + "\tGrade: " + str(sum(self.recall_list)) )
         return recall_stats
         
     def set_element(self,element):
@@ -142,7 +144,7 @@ class Starsign ():
 
     def recall_month(self):
         ''' recall month of starsign '''
-        print ("When is the birthday of " + self.name + " ?")
+        print ("When is the month of " + self.name + "?")
         print (self.month)
         ans = input().lower()
         ans = ans[0:3]
@@ -150,10 +152,12 @@ class Starsign ():
         if ans == self.month[0:3].lower():
             print ("Yes, it's " + self.month)
             self.correct += 1
+            del(self.recall_list[0])
             self.recall_list.append(1)
         else:
             print ("No, it's " + self.month)
             self.incorrect += 1
+            del(self.recall_list[0])
             self.recall_list.append(-1)
 
 # define 12 starsign objects
@@ -240,9 +244,7 @@ while entered == False:
 
 signs = 2
 rounds = 5
-print(aries.recall_list)
-print(taurus.recall_list)
-print(gemini.recall_list)
+
 
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
@@ -250,8 +252,8 @@ print("\n!!!recalling game!!!\n")
 import random as rn
 for r in range(rounds):
     i = rn.randint(0,signs-1) # recall how many starsigns
-    print ("round:", r)
-    print ("sign:",i)
+    print ("Round", r+1, "out of",rounds)
+    print ("Starsign",i+1, "out of",signs)
     print(StarsignList[i].get_recall_stats())
     StarsignList[i].recall_month()
     print(StarsignList[i].get_recall_stats())
