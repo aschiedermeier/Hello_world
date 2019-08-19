@@ -3,17 +3,18 @@
 # startsigns class is subclass from classes modalities and elements
 
 # bugs:
-# object list is somehow class list, as all objects share one list
-# try to program different calls in compiler to play with object lists
 
 # next step:
-
+# recall list as a 3 element stack list
+# make quiz list of 4 items to recall, choose randomly from them
+# if at least one value has recall list sum of plus 2, then add another element to quiz list
 
 # method ask zodiac element and modality
 # learnfactor (def 0) sigmoid learn factor (def 0.5)
 # method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# fixed bug: recall list is now instance attribute, not class attribute. hat to be initiated with constructor
 # method ask month
 # 3 object attributes: recalled, correct and incorrect 
 # object list stats to collect correct and incorrect results
@@ -60,7 +61,6 @@ for i in elementsList:
     print(i.get_descriptive_name())
     
 
-
 class Modality():
     ''' class modality '''
     def __init__(self,name="",power=""):
@@ -101,7 +101,7 @@ for i in ModalityList:
 
 class Starsign ():
     '''class starsign with classes Element & Modality as attributes'''
-    def __init__(self,name = "",month="",recalled = 0,correct=0,incorrect=0,recall_list=[]):
+    def __init__(self,name = "",month="",recalled = 0,correct=0,incorrect=0):
         '''initialze name and aspect attributes'''
         self.name = name
         self.month = month
@@ -112,7 +112,7 @@ class Starsign ():
         # how often answered incorrectly
         self.incorrect = incorrect
         # list of recall stats
-        self.recall_list=recall_list
+        self.recall_list=[]
         self.modality = Modality()
         self.element = Element()
          
@@ -147,7 +147,7 @@ class Starsign ():
         ans = input().lower()
         ans = ans[0:3]
         self.recalled += 1
-        if ans == self.month[0:3]:
+        if ans == self.month[0:3].lower():
             print ("Yes, it's " + self.month)
             self.correct += 1
             self.recall_list.append(1)
@@ -157,7 +157,7 @@ class Starsign ():
             self.recall_list.append(-1)
 
 # define 12 starsign objects
-aries = Starsign("Aries","april")
+aries = Starsign("Aries","April")
 aries.set_modality(cardinal)
 aries.set_element(fire)
 taurus = Starsign("Taurus","May")
@@ -240,6 +240,9 @@ while entered == False:
 
 signs = 2
 rounds = 5
+print(aries.recall_list)
+print(taurus.recall_list)
+print(gemini.recall_list)
 
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
@@ -257,7 +260,11 @@ for r in range(rounds):
 print("\n!!!recalling list!!!\n")
 print(aries.recall_list)
 print(taurus.recall_list)
+print(gemini.recall_list)
 
+print (aries.get_recall_stats())
+print (taurus.get_recall_stats())
+print (gemini.get_recall_stats())
 
 # recall elements and modality
 """
