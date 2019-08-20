@@ -13,6 +13,7 @@
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# List StarsignsToAdd: grade below max-2, so i can add to quiz_list
 # evaluate quiz_list with list quiz_list_grades: grade of every sign in quiz_list
 # Grade as its own attribute (sum of recall_list)
 # during recall game: check if grade is max: then kick out of list
@@ -215,41 +216,22 @@ for i in StarsignList:
     print(i.element.get_descriptive_name())
     print()
 
-"""
-# recalling month of starsigns
-# ask how many starsigns to recall 
-entered = False
-while entered == False:
-    try:
-        signs = int(input("Recall how many Starsigns? \n1-12: "))
-    except ValueError:
-        print ("Error: wrong input")
-        continue
-    except : #catches ctrl-C error
-        print ("No!")
-        continue
-    if  not (1 <= signs <= 12):
-        print ("Error: the value is not within permitted range (1-12)")
-    else: 
-        entered = True
+# evaluate StarsignList 
+StarsignListGrades = []
+for sign in StarsignList:
+    StarsignListGrades.append(sign.grade)
+print(StarsignListGrades)
 
-# ask how many rounds of recalling 
-entered = False
-while entered == False:
-    try:
-        rounds = int(input("Recall month of Starsign how often?  \n1-10: "))
-    except ValueError:
-        print ("Error: wrong input")
-        continue
-    except : #catches ctrl-C error
-        print ("No!")
-        continue
-    if  not (1 <= rounds <= 10):
-        print ("Error: the value is not within permitted range (1-10)")
-    else: 
-        entered = True
-"""
-
+# Starsigns to add to quiz_list
+# grade below max-1 
+StarsignsToAdd = []
+StarsignsToAddNames = []
+for sign in StarsignList:
+    if sign.grade < sign.len_recall_list:
+        StarsignsToAdd.append(sign)
+        StarsignsToAddNames.append(sign)       
+print(StarsignsToAdd)
+print(StarsignsToAddNames)
 
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
@@ -264,7 +246,7 @@ import random as rn
 # fill quiz_list with len_quiz_list starsigns
 # chosen randomly out of StarSignList
 # no doubles allowed
-len_quiz_list = 2
+len_quiz_list = 4
 while len(quiz_list) < len_quiz_list:
     i = rn.randint(0,len(StarsignList)-1)
     new_sign = StarsignList[i]
@@ -272,7 +254,11 @@ while len(quiz_list) < len_quiz_list:
         quiz_list.append(new_sign)
         quiz_list_names.append(new_sign.name)
 
-rounds = 9
+
+
+
+# recall quiz
+rounds = 4
 for r in range(rounds):
     # delete items out of quiz_list, if grade is top
     quiz_list = [i for i in quiz_list if sum(i.recall_list) != len(i.recall_list)]
@@ -299,12 +285,56 @@ for r in range(rounds):
     print(quiz_list[i].get_recall_stats())
     print()
 
+# evaluate StarsignList 
+StarsignListGrades = []
+for sign in StarsignList:
+    StarsignListGrades.append(sign.grade)
+print(StarsignListGrades)
+
 print("\n!!!recalling list!!!\n")
 for sign in StarsignList:
     print (sign.name, " --> Grade:", sum(sign.recall_list))
 
 
-# recall elements and modality
+
+"""
+# recalling month of starsigns
+# ask how many starsigns to recall 
+entered = False
+while entered == False:
+    try:
+        signs = int(input("Recall how many Starsigns? \n1-12: "))
+    except ValueError:
+        print ("Error: wrong input")
+        continue
+    except : #catches ctrl-C error
+        print ("No!")
+        continue
+    if  not (1 <= signs <= 12):
+        print ("Error: the value is not within permitted range (1-12)")
+    else: 
+        entered = True
+"""
+
+"""
+# ask how many rounds of recalling 
+entered = False
+while entered == False:
+    try:
+        rounds = int(input("Recall month of Starsign how often?  \n1-10: "))
+    except ValueError:
+        print ("Error: wrong input")
+        continue
+    except : #catches ctrl-C error
+        print ("No!")
+        continue
+    if  not (1 <= rounds <= 10):
+        print ("Error: the value is not within permitted range (1-10)")
+    else: 
+        entered = True
+"""
+
+
 """
 # Recall element of Starsign
 import random as rn
@@ -317,7 +347,9 @@ if ans == StarsignList[i].element.name[0:3]:
     print ("Yes, it's " + StarsignList[i].element.name)
 else:
     print ("No, it's " + StarsignList[i].element.name)
+"""
 
+"""
 # Recall modality of Starsign
 import random as rn
 i = rn.randint(0,11)
