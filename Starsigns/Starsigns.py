@@ -120,7 +120,7 @@ class Starsign ():
         self.incorrect = incorrect
         # list of recall stats, list length can be parameter for tuning later
         self.recall_list=[0]*self.len_recall_list
-        self.grade = sum(self.recall_list)
+        self.grade =  sum(self.recall_list)
         self.modality = Modality()
         self.element = Element()
          
@@ -166,6 +166,7 @@ class Starsign ():
             self.incorrect += 1
             del(self.recall_list[0])
             self.recall_list.append(-1)
+        self.grade =  sum(self.recall_list)
 
 # define 12 starsign objects
 aries = Starsign("Aries","april")
@@ -271,16 +272,6 @@ while len(quiz_list) < len_quiz_list:
         quiz_list.append(new_sign)
         quiz_list_names.append(new_sign.name)
 
-print (quiz_list_names)
-print (quiz_list)
-
-# evaluate quiz_list 
-quiz_list_grades = []
-for sign in quiz_list:
-    quiz_list_grades.append(sign.grade)
-print(quiz_list_grades)
-
-
 rounds = 9
 for r in range(rounds):
     # delete items out of quiz_list, if grade is top
@@ -289,7 +280,12 @@ for r in range(rounds):
     quiz_list_names = []
     for sign in quiz_list:
         quiz_list_names.append(sign.name)   
-    print (quiz_list_names)
+    print ("Quizlist:",quiz_list_names)
+    # evaluate quiz_list 
+    quiz_list_grades = []
+    for sign in quiz_list:
+        quiz_list_grades.append(sign.grade)
+    print("Quizlistgrades:",quiz_list_grades)
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
         print("Wohoo, you have learnt all items!\n" + ":-) "*9)
