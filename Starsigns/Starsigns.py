@@ -5,7 +5,7 @@
 # bugs:
 
 # next step:
-# list with words i learnt (max level)
+# tell how many rounds i did at the end
 
 
 # method ask zodiac element and modality
@@ -13,6 +13,7 @@
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# good_list: list with words i learnt (max level)
 # check when to add new sign
 # check if there is anything to add
 # if yes, then add out of to addlist (avoid double)
@@ -157,7 +158,7 @@ class Starsign ():
     def recall_month(self):
         ''' recall month of starsign '''
         print ("When is the month of " + self.name + "?")
-        print ("Hint: ",self.month)
+        print ("Hint:",self.month)
         ans = input().lower()
         ans = ans[0:3]
         self.recalled += 1
@@ -171,7 +172,7 @@ class Starsign ():
             self.incorrect += 1
             del(self.recall_list[0])
             self.recall_list.append(-1)
-        self.grade =  sum(self.recall_list)
+        self.grade = sum(self.recall_list)
 
 # define 12 starsign objects
 aries = Starsign("Aries","april")
@@ -246,12 +247,11 @@ while len(quiz_list) < len_quiz_list:
 rounds = 12
 for r in range(rounds):
     # delete items out of quiz_list, if grade is top
-    quiz_list = [i for i in quiz_list if sum(i.recall_list) != len(i.recall_list)]
+    quiz_list = [i for i in quiz_list if sum(i.recall_list) != i.len_recall_list]
     # update quiz_list_names after deletion of items in quiz_list
-    quiz_list_names = []
-    for sign in quiz_list:
-        quiz_list_names.append(sign.name)   
+    quiz_list_names = [i.name for i in quiz_list if sum(i.recall_list) != i.len_recall_list]
     print ("Quizlist:",quiz_list_names)
+
     # evaluate quiz_list 
     quiz_list_grades = []
     for sign in quiz_list:
@@ -276,11 +276,12 @@ for r in range(rounds):
     print("StarsignsToAddNames:",StarsignsToAddNames)
     print("Lenght:",len(StarsignsToAddNames))
     
-    # check, if i need to add
-    # len(learn_list) must be like initial len(quiz_list)
-    learn_list = [i.name for i in quiz_list if sum(i.recall_list) < i.len_recall_list-1]
-    print ("learn_list:",learn_list)
-    if len(learn_list) < len_quiz_list:
+    # check, if i need to add new items
+    # bad_list: items, that are still bad (2 below max).
+    # len(bad_list) must be like initial len(quiz_list)
+    bad_list = [i.name for i in quiz_list if sum(i.recall_list) < i.len_recall_list-1]
+    print ("bad_list:",bad_list)
+    if len(bad_list) < len_quiz_list:
         # check if i can add
         # if yes, add random item from StarsignsToAdd
         # check to avoid double entry
@@ -296,6 +297,7 @@ for r in range(rounds):
     if len(quiz_list) == 0:
         print("Wohoo, you have learnt all items!\n" + ":-) "*9)
         break
+    
     # recall random sign out of quiz_list
     i = rn.randint(0,len(quiz_list)-1) 
     print ("Round", r+1, "out of",rounds)
@@ -303,19 +305,20 @@ for r in range(rounds):
     print(quiz_list[i].get_recall_stats())
     quiz_list[i].recall_month()
     print(quiz_list[i].get_recall_stats())
+
+    #good_list: signs i learnt
+    good_list = [i for i in StarsignList if sum(i.recall_list) == i.len_recall_list]
+    good_list_names = [i.name for i in StarsignList if sum(i.recall_list) == i.len_recall_list]
+    print ("good_list:",good_list_names)
     print()
 
-# evaluate StarsignList 
-StarsignListGrades = []
-for sign in StarsignList:
-    StarsignListGrades.append(sign.grade)
-print(StarsignListGrades)
 
-print("\n!!!recalling list!!!\n")
+print ("Final result after",r+1,"rounds:")
+
+print ("good_list:",good_list_names)
+
 for sign in StarsignList:
     print (sign.name, " --> Grade:", sum(sign.recall_list))
-
-
 
 """
 # recalling month of starsigns
