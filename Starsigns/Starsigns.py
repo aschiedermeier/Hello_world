@@ -13,6 +13,7 @@
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# evaluate quiz_list with list quiz_list_grades: grade of every sign in quiz_list
 # Grade as its own attribute (sum of recall_list)
 # during recall game: check if grade is max: then kick out of list
 # if quiz_list is empty, give feedback that game is finished
@@ -105,6 +106,8 @@ for i in ModalityList:
 
 class Starsign ():
     '''class starsign with classes Element & Modality as attributes'''
+    # length recall list, is also max grade
+    len_recall_list = 4
     def __init__(self,name = "",month="",recalled = 0,correct=0,incorrect=0):
         '''initialze name and aspect attributes'''
         self.name = name
@@ -116,7 +119,7 @@ class Starsign ():
         # how often answered incorrectly
         self.incorrect = incorrect
         # list of recall stats, list length can be parameter for tuning later
-        self.recall_list=[0]*2
+        self.recall_list=[0]*self.len_recall_list
         self.grade = sum(self.recall_list)
         self.modality = Modality()
         self.element = Element()
@@ -245,33 +248,44 @@ while entered == False:
     else: 
         entered = True
 """
-print(aries.recall_list)
-print(aries.grade)
+
 
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
 
-
 # list containing elements to choose from
 # minumum 4 elements
-# add elements: if one element has grade 2
-# del element: if it has top grade
+# add elements: if one element has max grade - 1
 quiz_list=[] # list with object (hard to read, but callable)
 quiz_list_names=[] # list with object names (easy to read, but as str not usable)
 import random as rn
-# add 3 starsigns
-while len(quiz_list) < 2:
+
+# fill quiz_list with len_quiz_list starsigns
+# chosen randomly out of StarSignList
+# no doubles allowed
+len_quiz_list = 2
+while len(quiz_list) < len_quiz_list:
     i = rn.randint(0,len(StarsignList)-1)
-    new_sign = StarsignList[i]#.name    
+    new_sign = StarsignList[i]
     if new_sign not in quiz_list:
         quiz_list.append(new_sign)
         quiz_list_names.append(new_sign.name)
+
+print (quiz_list_names)
+print (quiz_list)
+
+# evaluate quiz_list 
+quiz_list_grades = []
+for sign in quiz_list:
+    quiz_list_grades.append(sign.grade)
+print(quiz_list_grades)
+
 
 rounds = 9
 for r in range(rounds):
     # delete items out of quiz_list, if grade is top
     quiz_list = [i for i in quiz_list if sum(i.recall_list) != len(i.recall_list)]
-    # update quiz_list_names
+    # update quiz_list_names after deletion of items in quiz_list
     quiz_list_names = []
     for sign in quiz_list:
         quiz_list_names.append(sign.name)   
