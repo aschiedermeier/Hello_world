@@ -13,7 +13,8 @@
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
-# List StarsignsToAdd: grade below max-2, so i can add to quiz_list
+# List StarsignListGrades: grades of all signs
+# List StarsignsToAdd: grade below max, so i can add to quiz_list
 # evaluate quiz_list with list quiz_list_grades: grade of every sign in quiz_list
 # Grade as its own attribute (sum of recall_list)
 # during recall game: check if grade is max: then kick out of list
@@ -108,7 +109,7 @@ for i in ModalityList:
 class Starsign ():
     '''class starsign with classes Element & Modality as attributes'''
     # length recall list, is also max grade
-    len_recall_list = 4
+    len_recall_list = 3
     def __init__(self,name = "",month="",recalled = 0,correct=0,incorrect=0):
         '''initialze name and aspect attributes'''
         self.name = name
@@ -153,7 +154,7 @@ class Starsign ():
     def recall_month(self):
         ''' recall month of starsign '''
         print ("When is the month of " + self.name + "?")
-        print (self.month)
+        print ("Hint: ",self.month)
         ans = input().lower()
         ans = ans[0:3]
         self.recalled += 1
@@ -216,23 +217,6 @@ for i in StarsignList:
     print(i.element.get_descriptive_name())
     print()
 
-# evaluate StarsignList 
-StarsignListGrades = []
-for sign in StarsignList:
-    StarsignListGrades.append(sign.grade)
-print(StarsignListGrades)
-
-# Starsigns to add to quiz_list
-# grade below max-1 
-StarsignsToAdd = []
-StarsignsToAddNames = []
-for sign in StarsignList:
-    if sign.grade < sign.len_recall_list:
-        StarsignsToAdd.append(sign)
-        StarsignsToAddNames.append(sign)       
-print(StarsignsToAdd)
-print(StarsignsToAddNames)
-
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
 
@@ -246,7 +230,7 @@ import random as rn
 # fill quiz_list with len_quiz_list starsigns
 # chosen randomly out of StarSignList
 # no doubles allowed
-len_quiz_list = 4
+len_quiz_list = 3
 while len(quiz_list) < len_quiz_list:
     i = rn.randint(0,len(StarsignList)-1)
     new_sign = StarsignList[i]
@@ -255,10 +239,8 @@ while len(quiz_list) < len_quiz_list:
         quiz_list_names.append(new_sign.name)
 
 
-
-
 # recall quiz
-rounds = 4
+rounds = 12
 for r in range(rounds):
     # delete items out of quiz_list, if grade is top
     quiz_list = [i for i in quiz_list if sum(i.recall_list) != len(i.recall_list)]
@@ -272,6 +254,26 @@ for r in range(rounds):
     for sign in quiz_list:
         quiz_list_grades.append(sign.grade)
     print("Quizlistgrades:",quiz_list_grades)
+
+    # evaluate StarsignList 
+    StarsignListGrades = []
+    for sign in StarsignList:
+        StarsignListGrades.append(sign.grade)
+    print("StarsignListGrades:",StarsignListGrades)
+    
+    # Starsigns to add to quiz_list
+    # grade below max
+    StarsignsToAdd = []
+    StarsignsToAddNames = []
+    for sign in StarsignList:
+        if sign.grade < sign.len_recall_list:
+            StarsignsToAdd.append(sign)
+            StarsignsToAddNames.append(sign.name)       
+    #print(StarsignsToAdd)
+    print("StarsignsToAddNames:",StarsignsToAddNames)
+    print("Lenght:",len(StarsignsToAddNames))
+    
+
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
         print("Wohoo, you have learnt all items!\n" + ":-) "*9)
