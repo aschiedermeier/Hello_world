@@ -5,14 +5,17 @@
 # bugs:
 
 # next step:
+# list with words i learnt (max level)
 
-# during recll game: check if grade is 2: if less than 4 have below 2, then then add another item
-# if at least one value has recall list sum of plus 2, then add another element to quiz list
+
 # method ask zodiac element and modality
 # learnfactor (def 0) sigmoid learn factor (def 0.5)
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# check when to add new sign
+# check if there is anything to add
+# if yes, then add out of to addlist (avoid double)
 # List StarsignListGrades: grades of all signs
 # List StarsignsToAdd: grade below max, so i can add to quiz_list
 # evaluate quiz_list with list quiz_list_grades: grade of every sign in quiz_list
@@ -260,7 +263,7 @@ for r in range(rounds):
     for sign in StarsignList:
         StarsignListGrades.append(sign.grade)
     print("StarsignListGrades:",StarsignListGrades)
-    
+   
     # Starsigns to add to quiz_list
     # grade below max
     StarsignsToAdd = []
@@ -273,6 +276,21 @@ for r in range(rounds):
     print("StarsignsToAddNames:",StarsignsToAddNames)
     print("Lenght:",len(StarsignsToAddNames))
     
+    # check, if i need to add
+    # len(learn_list) must be like initial len(quiz_list)
+    learn_list = [i.name for i in quiz_list if sum(i.recall_list) < i.len_recall_list-1]
+    print ("learn_list:",learn_list)
+    if len(learn_list) < len_quiz_list:
+        # check if i can add
+        # if yes, add random item from StarsignsToAdd
+        # check to avoid double entry
+        if len(StarsignsToAdd)!=0:
+            i = rn.randint(0,len(StarsignsToAdd)-1)
+            add_sign = StarsignsToAdd[i]
+            if add_sign not in quiz_list:
+                quiz_list.append(add_sign)
+                quiz_list_names.append(add_sign.name)
+        print("Added to quiz_list:", add_sign.name)
 
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
