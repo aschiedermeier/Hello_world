@@ -6,20 +6,20 @@
 
 # next step:
 
-# during recll game: check if score is 2: if less than 4 have below 2, then then add another item
+# during recll game: check if grade is 2: if less than 4 have below 2, then then add another item
 # if at least one value has recall list sum of plus 2, then add another element to quiz list
-
 # method ask zodiac element and modality
 # learnfactor (def 0) sigmoid learn factor (def 0.5)
-# method ask: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, simgoid learn factor: SLF= =1/(1+EXP(-LF))
+# simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
-# during recall game: check if score is max: then kick out of list
+# Grade as its own attribute (sum of recall_list)
+# during recall game: check if grade is max: then kick out of list
 # if quiz_list is empty, give feedback that game is finished
 # make quiz list of 4 items to recall, in each round choose randomly from them
 # recall list is a 3 element stack list
 # fixed bug: recall list is now instance attribute, not class attribute. hat to be initiated with constructor
-# method ask month
+# method ask month: changed answered right or wrong and edit LF: +1 wenn richtig, -1 wenn falsch, 
 # 3 object attributes: recalled, correct and incorrect 
 # object list stats to collect correct and incorrect results
 # recall only 2 signs
@@ -117,6 +117,7 @@ class Starsign ():
         self.incorrect = incorrect
         # list of recall stats, list length can be parameter for tuning later
         self.recall_list=[0]*2
+        self.grade = sum(self.recall_list)
         self.modality = Modality()
         self.element = Element()
          
@@ -134,7 +135,7 @@ class Starsign ():
         '''return how often been recalled: correct and incorrect'''
         recall_stats = ("The starsign " + self.name + " has been recalled " + str(self.recalled) + " times.\nCorrect: " 
         + str(self.correct) + "\t\tIncorrect: " + str(self.incorrect)+ "\nStats: " + str(self.recall_list)
-        + "\tGrade: " + str(sum(self.recall_list)) )
+        + "\tGrade: " + str(self.grade) )
         return recall_stats
         
     def set_element(self,element):
@@ -244,6 +245,8 @@ while entered == False:
     else: 
         entered = True
 """
+print(aries.recall_list)
+print(aries.grade)
 
 # Recall month of Starsign using recall method
 print("\n!!!recalling game!!!\n")
