@@ -4,8 +4,9 @@
 
 # bugs:
 
+
 # next step:
-# tell how many rounds i did at the end
+
 
 
 # method ask zodiac element and modality
@@ -13,6 +14,8 @@
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# starsigntoadd has elements of quizlist, need to take them out
+# tell how many rounds i did at the end
 # good_list: list with words i learnt (max level)
 # check when to add new sign
 # check if there is anything to add
@@ -244,37 +247,38 @@ while len(quiz_list) < len_quiz_list:
 
 
 # recall quiz
-rounds = 12
+rounds = 20
 for r in range(rounds):
-    # delete items out of quiz_list, if grade is top
+    print ("Round", r+1, "out of",rounds)
+    
+    # delete items out of quiz_list, if grade is max
     quiz_list = [i for i in quiz_list if sum(i.recall_list) != i.len_recall_list]
     # update quiz_list_names after deletion of items in quiz_list
     quiz_list_names = [i.name for i in quiz_list if sum(i.recall_list) != i.len_recall_list]
     print ("Quizlist:",quiz_list_names)
-
+    
     # evaluate quiz_list 
     quiz_list_grades = []
     for sign in quiz_list:
         quiz_list_grades.append(sign.grade)
     print("Quizlistgrades:",quiz_list_grades)
-
+    
     # evaluate StarsignList 
     StarsignListGrades = []
     for sign in StarsignList:
         StarsignListGrades.append(sign.grade)
     print("StarsignListGrades:",StarsignListGrades)
-   
+    
     # Starsigns to add to quiz_list
     # grade below max
     StarsignsToAdd = []
     StarsignsToAddNames = []
     for sign in StarsignList:
-        if sign.grade < sign.len_recall_list:
+        if sign.grade < sign.len_recall_list and sign not in quiz_list:
             StarsignsToAdd.append(sign)
             StarsignsToAddNames.append(sign.name)       
     #print(StarsignsToAdd)
     print("StarsignsToAddNames:",StarsignsToAddNames)
-    print("Lenght:",len(StarsignsToAddNames))
     
     # check, if i need to add new items
     # bad_list: items, that are still bad (2 below max).
@@ -282,25 +286,23 @@ for r in range(rounds):
     bad_list = [i.name for i in quiz_list if sum(i.recall_list) < i.len_recall_list-1]
     print ("bad_list:",bad_list)
     if len(bad_list) < len_quiz_list:
-        # check if i can add
+        # check if i should add
         # if yes, add random item from StarsignsToAdd
-        # check to avoid double entry
         if len(StarsignsToAdd)!=0:
             i = rn.randint(0,len(StarsignsToAdd)-1)
             add_sign = StarsignsToAdd[i]
-            if add_sign not in quiz_list:
-                quiz_list.append(add_sign)
-                quiz_list_names.append(add_sign.name)
-        print("Added to quiz_list:", add_sign.name)
-
+            quiz_list.append(add_sign)
+            quiz_list_names.append(add_sign.name)
+            print("Added to quiz_list:", add_sign.name)
+    
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
         print("Wohoo, you have learnt all items!\n" + ":-) "*9)
+        quiz = False
         break
-    
+
     # recall random sign out of quiz_list
     i = rn.randint(0,len(quiz_list)-1) 
-    print ("Round", r+1, "out of",rounds)
     print ("Starsign",i+1, "out of",len(quiz_list))
     print(quiz_list[i].get_recall_stats())
     quiz_list[i].recall_month()
@@ -313,7 +315,7 @@ for r in range(rounds):
     print()
 
 
-print ("Final result after",r+1,"rounds:")
+print ("Final result after",r,"rounds:")
 
 print ("good_list:",good_list_names)
 
