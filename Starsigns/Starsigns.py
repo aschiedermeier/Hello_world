@@ -7,13 +7,27 @@
 
 # next step:
 
+# intro and manual
+# tip: only 3 letters as answer ok.
+# difficulty levels
+# ##hide all helper print commands
 
+# seperate recall_list for element
 
-# method ask zodiac element and modality
 # learnfactor (def 0) sigmoid learn factor (def 0.5)
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# let user choose to see review first
+# Introduce starsigns in quizlist so user can review first
+# make introduction specific (month,element,modality)
+# chose different recall modes based on choice
+# give choice between month and element recall
+# method ask zodiac element and modality
+# recall game element and modality
+# ask for input how many rounds
+# ask for input how long StarsignList: if below 3, then quizlist short too
+# final result number differs after all rounds and finished early
 # starsigntoadd has elements of quizlist, need to take them out
 # tell how many rounds i did at the end
 # good_list: list with words i learnt (max level)
@@ -33,9 +47,8 @@
 # 3 object attributes: recalled, correct and incorrect 
 # object list stats to collect correct and incorrect results
 # recall only 2 signs
-# ask how many to recall 
 # recall 5 times
-# ask how often recall
+
 
 class Element():
     ''' element class '''
@@ -47,10 +60,10 @@ class Element():
     def get_descriptive_name(self):
         '''return a neatly formatted name and desctiption'''
         if self.aspect != "":
-            long_name = "Element " + self.name + " represents " + self.aspect
+            long_name = "Element " + self.name + " represents " + self.aspect + "."
             return long_name
         else:
-            long_name = "Element " + self.name
+            long_name = "Element " + self.name + "."
             return long_name         
 
     def set_aspect(self,aspect):
@@ -70,10 +83,11 @@ water.set_aspect("emotions")
 air = Element("air","intellect")
 earth = Element ("earth","substance & practicality")
 
+"""
 elementsList = [fire,water,air,earth]
 for i in elementsList:
     print(i.get_descriptive_name())
-    
+"""    
 
 class Modality():
     ''' class modality '''
@@ -85,10 +99,10 @@ class Modality():
     def get_descriptive_name(self):
         '''return a neatly formatted name and desctiption'''
         if self.power != "":
-            long_name = "The " + self.name + " modality marks the power of " + self.power
+            long_name = "The " + self.name + " modality marks the power of " + self.power + "."
             return long_name
         else:
-            long_name = self.name + " modality" 
+            long_name = self.name + " modality" + "." 
             return long_name.capitalize()         
 
     def set_power(self,power):
@@ -108,10 +122,11 @@ fixed.set_power("sustaining")
 
 mutable = Modality("mutable","change")
 
-
+"""
 ModalityList = [cardinal,fixed,mutable]
 for i in ModalityList:
     print(i.get_descriptive_name())
+"""
 
 class Starsign ():
     '''class starsign with classes Element & Modality as attributes'''
@@ -136,13 +151,24 @@ class Starsign ():
 
     def get_descriptive_name(self):
             '''return a neatly formatted name and desctiption'''
-            if self.modality.name != "" and self.element.name != "":
-                long_name = "The starsign " + self.name + " is born in " + self.month + "\nIt's root power is " + self.modality.name + " " + self.element.name
-                return long_name
-            else:
-                long_name = "The starsign " + self.name + " is born in " + self.month
-                return long_name
-    
+            long_name = "The starsign " + self.name + " is born in " + self.month + "\nIt's root power is " + self.modality.name + " " + self.element.name + "."
+            return long_name
+
+    def get_month(self):
+            '''return month of sign'''
+            long_name = "The starsign " + self.name + " is born in " + self.month + "."
+            return long_name
+
+    def get_element(self):
+            '''return element of sign'''
+            long_name = "The starsign " + self.name + "'s element is " + self.element.name + ", which represents " + self.element.aspect + "."
+            return long_name
+                
+    def get_modality(self):
+            '''return modality of sign'''
+            long_name = "The starsign " + self.name + "'s modality is " + self.modality.name + " with the power of " + self.modality.power + "."
+            return long_name
+
     def get_recall_stats(self):
         '''return how often been recalled: correct and incorrect'''
         recall_stats = ("The starsign " + self.name + " has been recalled " + str(self.recalled) + " times.\nCorrect: " 
@@ -162,7 +188,7 @@ class Starsign ():
         ''' recall month of starsign '''
         print ("When is the month of " + self.name + "?")
         print ("Hint:",self.month)
-        ans = input().lower()
+        ans = input("Answer: ").lower()
         ans = ans[0:3]
         self.recalled += 1
         if ans == self.month[0:3].lower():
@@ -176,6 +202,45 @@ class Starsign ():
             del(self.recall_list[0])
             self.recall_list.append(-1)
         self.grade = sum(self.recall_list)
+        
+    def recall_element(self):
+        ''' recall month of starsign '''
+        print ("What is the element of " + self.name + "?")
+        print ("Hint:",self.element.name)
+        ans = input("Answer: ").lower()
+        ans = ans[0:3]
+        self.recalled += 1
+        if ans == self.element.name[0:3].lower():
+            print ("Yes, it's " + self.element.name + "! :-)")
+            self.correct += 1
+            del(self.recall_list[0])
+            self.recall_list.append(1)
+        else:
+            print ("No, it's " + self.element.name + "! :-(")
+            self.incorrect += 1
+            del(self.recall_list[0])
+            self.recall_list.append(-1)
+        self.grade = sum(self.recall_list)
+
+    def recall_modality(self):
+        ''' recall month of starsign '''
+        print ("What is the modality of " + self.name + "?")
+        print ("Hint:",self.modality.name)
+        ans = input("Answer: ").lower()
+        ans = ans[0:3]
+        self.recalled += 1
+        if ans == self.modality.name[0:3].lower():
+            print ("Yes, it's " + self.modality.name + "! :-)")
+            self.correct += 1
+            del(self.recall_list[0])
+            self.recall_list.append(1)
+        else:
+            print ("No, it's " + self.modality.name + "! :-(")
+            self.incorrect += 1
+            del(self.recall_list[0])
+            self.recall_list.append(-1)
+        self.grade = sum(self.recall_list)
+        
 
 # define 12 starsign objects
 aries = Starsign("Aries","april")
@@ -217,27 +282,72 @@ pisces.set_element(water)
 
 # list 12 signs
 StarsignList = [aries,taurus,gemini,cancer,leo,virgo,libra,scorpio,sagittarius,capricorn,aquarius,pisces]
-print (len(StarsignList))
+"""
 for i in StarsignList:
     print(i.get_descriptive_name())
     print(i.modality.get_descriptive_name())
     print(i.element.get_descriptive_name())
     print()
+"""
 
-# Recall month of Starsign using recall method
-print("\n!!!recalling game!!!\n")
+# Recall  quiz of Starsigns using recall method
 
-# list containing elements to choose from
-# minumum 4 elements
-# add elements: if one element has max grade - 1
+# ask what to recall: month, element or modality 
+modeDict = {"mon":"month","ele":"element","mod":"modality"}
+entered = False
+while entered == False:
+    mode = input("What do you want to recall: Month, element or modality of starsign?\nRecall: ")
+    mode = mode[0:3]
+    if  mode not in modeDict:
+        print ("Please choose one of the 3!")
+    else: 
+        entered = True
+modeDict = {"mon":"month","ele":"element","mod":"modality"}
+print ("We will recall the", modeDict[mode], "of starsigns.")
+print()
+
+# ask how many Starsigns to recall (1-12)
+entered = False
+while entered == False:
+    try:
+        signs = int(input("Recall how many Starsigns? \n1-12: "))
+    except ValueError:
+        print ("Error: wrong input")
+        print()
+        continue
+    except : #catches ctrl-C error
+        print ("No!")
+        print()
+        continue
+    if  not (1 <= signs <= 12):
+        print ("Error: the value is not within permitted range (1-12)")
+        print()
+    else: 
+        entered = True
+
+# based on choice shortening of StarsignList after shuffling
+from random import shuffle
+shuffle(StarsignList)
+StarsignList = StarsignList[:signs]
+
+# list containing elements to choose from in this round
+# beginning fixed  number of elements
+# add elements later if elements progress
 quiz_list=[] # list with object (hard to read, but callable)
 quiz_list_names=[] # list with object names (easy to read, but as str not usable)
 import random as rn
 
+# len_quiz_list defines initial lenght of quiz_list
+if signs < 3:
+    len_quiz_list = signs
+else:
+    len_quiz_list = 3
+## print("signs:",signs)
+## print("len_quiz_list:",len_quiz_list)
+
 # fill quiz_list with len_quiz_list starsigns
 # chosen randomly out of StarSignList
 # no doubles allowed
-len_quiz_list = 3
 while len(quiz_list) < len_quiz_list:
     i = rn.randint(0,len(StarsignList)-1)
     new_sign = StarsignList[i]
@@ -245,11 +355,71 @@ while len(quiz_list) < len_quiz_list:
         quiz_list.append(new_sign)
         quiz_list_names.append(new_sign.name)
 
+print("\nSigns to recall:")
+for sign in StarsignList:
+    print ("- " + sign.name)
+
+
+entered = False
+while entered == False:
+    review = input("\nDo you want to review those starsigns first?\ny/n: ")
+    print()
+    if  review == "y":
+        for sign in StarsignList:
+            if mode == "mon":
+                print(sign.get_month())
+            if mode == "ele":
+                print(sign.get_element())
+            if mode == "mod":
+                print(sign.get_modality())
+    else: 
+        print ("Cool, let's go!")
+    entered = True  
+print()        
+
+
+# ask how many rounds of recalling 
+entered = False
+while entered == False:
+    try:
+        rounds = int(input("Recall how many rounds?  \n1-100: "))
+    except ValueError:
+        print ("Error: wrong input")
+        continue
+    except : #catches ctrl-C error
+        print ("No!")
+        continue
+    if  not (1 <= rounds <= 100):
+        print ("Error: the value is not within permitted range (1-100)")
+    else: 
+        entered = True
+print()
+## rounds = 20
 
 # recall quiz
-rounds = 20
 for r in range(rounds):
-    print ("Round", r+1, "out of",rounds)
+    # call out mode and round
+    print (modeDict[mode].capitalize(), "of starsigns: Round", r+1, "out of",rounds)
+
+    # show Quizlist
+    print ("Quizlist:",quiz_list_names)
+    
+    # recall random sign out of quiz_list
+    i = rn.randint(0,len(quiz_list)-1) 
+    print ("Starsign",i+1, "out of",len(quiz_list))
+    print(quiz_list[i].get_recall_stats())
+    if mode == "mon":
+        quiz_list[i].recall_month()
+    if mode == "ele":
+        quiz_list[i].recall_element()
+    if mode == "mod":
+        quiz_list[i].recall_modality()
+    print(quiz_list[i].get_recall_stats())
+
+    #good_list: signs i learnt
+    good_list = [i for i in StarsignList if sum(i.recall_list) == i.len_recall_list]
+    good_list_names = [i.name for i in StarsignList if sum(i.recall_list) == i.len_recall_list]
+    print ("good_list:",good_list_names)
     
     # delete items out of quiz_list, if grade is max
     quiz_list = [i for i in quiz_list if sum(i.recall_list) != i.len_recall_list]
@@ -297,95 +467,16 @@ for r in range(rounds):
     
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
-        print("Wohoo, you have learnt all items!\n" + ":-) "*9)
-        quiz = False
+        print("\nWohoo, you have mastered all", len(good_list),"items!\n" + ":-) "*9)
         break
-
-    # recall random sign out of quiz_list
-    i = rn.randint(0,len(quiz_list)-1) 
-    print ("Starsign",i+1, "out of",len(quiz_list))
-    print(quiz_list[i].get_recall_stats())
-    quiz_list[i].recall_month()
-    print(quiz_list[i].get_recall_stats())
-
-    #good_list: signs i learnt
-    good_list = [i for i in StarsignList if sum(i.recall_list) == i.len_recall_list]
-    good_list_names = [i.name for i in StarsignList if sum(i.recall_list) == i.len_recall_list]
-    print ("good_list:",good_list_names)
+    
     print()
-
-
-print ("Final result after",r,"rounds:")
-
-print ("good_list:",good_list_names)
-
+    
+print ("\nAfter",r+1,"rounds you have mastered the following signs:")
+for sign in good_list_names:
+    print (sign)
+    
+#print ("good_list:",good_list_names)
+print("\nGrades:")
 for sign in StarsignList:
     print (sign.name, " --> Grade:", sum(sign.recall_list))
-
-"""
-# recalling month of starsigns
-# ask how many starsigns to recall 
-entered = False
-while entered == False:
-    try:
-        signs = int(input("Recall how many Starsigns? \n1-12: "))
-    except ValueError:
-        print ("Error: wrong input")
-        continue
-    except : #catches ctrl-C error
-        print ("No!")
-        continue
-    if  not (1 <= signs <= 12):
-        print ("Error: the value is not within permitted range (1-12)")
-    else: 
-        entered = True
-"""
-
-"""
-# ask how many rounds of recalling 
-entered = False
-while entered == False:
-    try:
-        rounds = int(input("Recall month of Starsign how often?  \n1-10: "))
-    except ValueError:
-        print ("Error: wrong input")
-        continue
-    except : #catches ctrl-C error
-        print ("No!")
-        continue
-    if  not (1 <= rounds <= 10):
-        print ("Error: the value is not within permitted range (1-10)")
-    else: 
-        entered = True
-"""
-
-
-"""
-# Recall element of Starsign
-import random as rn
-i = rn.randint(0,11)
-print ("What is the element of " + StarsignList[i].name + " ?")
-print (StarsignList[i].element.name)
-ans = input().lower()
-ans = ans[0:3]
-if ans == StarsignList[i].element.name[0:3]:
-    print ("Yes, it's " + StarsignList[i].element.name)
-else:
-    print ("No, it's " + StarsignList[i].element.name)
-"""
-
-"""
-# Recall modality of Starsign
-import random as rn
-i = rn.randint(0,11)
-print ("What is the modality of " + StarsignList[i].name + " ?")
-print (StarsignList[i].modality.name)
-ans = input().lower()
-ans = ans[0:3]
-if ans == StarsignList[i].modality.name[0:3]:
-    print ("Yes, it's " + StarsignList[i].modality.name)
-else:
-    print ("No, it's " + StarsignList[i].modality.name)
-    
-   
-"""
