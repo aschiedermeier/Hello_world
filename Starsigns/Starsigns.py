@@ -7,8 +7,7 @@
 
 # next step:
 
-# intro and manual
-# tip: only 3 letters as answer ok.
+
 # difficulty levels
 # ##hide all helper print commands
 
@@ -18,6 +17,8 @@
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# intro and manual
+# tip: only 3 letters as answer ok.
 # let user choose to see review first
 # Introduce starsigns in quizlist so user can review first
 # make introduction specific (month,element,modality)
@@ -243,31 +244,31 @@ class Starsign ():
         
 
 # define 12 starsign objects
-aries = Starsign("Aries","april")
+aries = Starsign("Aries","April")
 aries.set_modality(cardinal)
 aries.set_element(fire)
-taurus = Starsign("Taurus","may")
+taurus = Starsign("Taurus","May")
 taurus.set_modality(fixed)
 taurus.set_element(earth)
-gemini = Starsign("Gemini","june")
+gemini = Starsign("Gemini","June")
 gemini.set_modality(mutable)
 gemini.set_element(air)
-cancer = Starsign("Cancer","july")
+cancer = Starsign("Cancer","July")
 cancer.set_modality(cardinal)
 cancer.set_element(water)
-leo = Starsign("Leo","august")
+leo = Starsign("Leo","August")
 leo.set_modality(fixed)
 leo.set_element(fire)
-virgo = Starsign("Virgo","september")
+virgo = Starsign("Virgo","September")
 virgo.set_modality(mutable)
 virgo.set_element(earth)
-libra = Starsign("Libra","october")
+libra = Starsign("Libra","October")
 libra.set_modality(cardinal)
 libra.set_element(air)
-scorpio = Starsign("Scorpio","november")
+scorpio = Starsign("Scorpio","November")
 scorpio.set_modality(fixed)
 scorpio.set_element(water)
-sagittarius = Starsign("Sagittarius","december")
+sagittarius = Starsign("Sagittarius","December")
 sagittarius.set_modality(mutable)
 sagittarius.set_element(fire)
 capricorn = Starsign("Capricorn","january")
@@ -280,17 +281,32 @@ pisces = Starsign("Pisces","march")
 pisces.set_modality(mutable)
 pisces.set_element(water)
 
-# list 12 signs
+# list of 12 signs
 StarsignList = [aries,taurus,gemini,cancer,leo,virgo,libra,scorpio,sagittarius,capricorn,aquarius,pisces]
-"""
-for i in StarsignList:
-    print(i.get_descriptive_name())
-    print(i.modality.get_descriptive_name())
-    print(i.element.get_descriptive_name())
-    print()
-"""
 
-# Recall  quiz of Starsigns using recall method
+# Intro text
+print ()
+print ("*"*60)
+print (" "*20, "ZODIAC TRAINER")
+print ("""Program to learn month, element and modality of the 12 western startsigns.
+
+The twelve zodiac signs are grouped into four elements with their distinct traits. 
+Each of the four elements presents a cardinal expression, a fixed expression, and a mutable expression.
+Four elements times three modalities equals twelve distinct energy fields and therefore the twelve signs. 
+
+In this program, month means the main birthmonth until around the 20th of each starsign:
+e.g. April for Aries means March 21 to April 20.
+This is not 100% perfect (Libra: September 24 – October 23), but an easy way to cover most people's birthdays.
+
+A sign is mastered, if you recall it correctly 3 times in a row.
+To type in an answer, the first 3 letters are sufficient, e.g. apr for Aril.
+
+This is my first program in Python, for feedback email to: aschiedermeier@gmail.com
+Have fun studying!
+""")
+
+
+# Recall quiz of Starsigns using recall method
 
 # ask what to recall: month, element or modality 
 modeDict = {"mon":"month","ele":"element","mod":"modality"}
@@ -463,7 +479,7 @@ for r in range(rounds):
             add_sign = StarsignsToAdd[i]
             quiz_list.append(add_sign)
             quiz_list_names.append(add_sign.name)
-            print("Added to quiz_list:", add_sign.name)
+            print("Added to Quizlist:", add_sign.name)
     
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
