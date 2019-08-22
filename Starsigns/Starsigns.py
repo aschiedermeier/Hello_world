@@ -8,9 +8,11 @@
 # aschiedermeier@gmail.com
 
 # bugs:
+# novemebr is upper case, some others lower case
 
 # next step:
-
+# round choice at beginning
+# if mastered none, give extra message
 # difficulty levels
 
 
@@ -209,7 +211,7 @@ class Starsign ():
         self.grade = sum(self.recall_list)
         
     def recall_element(self):
-        ''' recall month of starsign '''
+        ''' recall element of starsign '''
         print ("What is the element of " + self.name + "?")
         ## print ("Hint:",self.element.name)
         ans = input("Answer: ").lower()
@@ -228,7 +230,7 @@ class Starsign ():
         self.grade = sum(self.recall_list)
 
     def recall_modality(self):
-        ''' recall month of starsign '''
+        ''' recall momodaliy of starsign '''
         print ("What is the modality of " + self.name + "?")
         ## print ("Hint:",self.modality.name)
         ans = input("Answer: ").lower()
@@ -391,6 +393,7 @@ while entered == False:
                 print(sign.get_element())
             if mode == "mod":
                 print(sign.get_modality())
+        review = input("\nPress 'return' when your're ready!\n")
         print("\n"*30,"No cheating! ;-)","\n"*30)
     else: 
         print ("Cool, let's go!")
@@ -405,9 +408,6 @@ while entered == False:
         rounds = int(input("Recall how many rounds?  \n1-100: "))
     except ValueError:
         print ("Error: wrong input")
-        continue
-    except : #catches ctrl-C error
-        print ("No!")
         continue
     if  not (1 <= rounds <= 100):
         print ("Error: the value is not within permitted range (1-100)")
