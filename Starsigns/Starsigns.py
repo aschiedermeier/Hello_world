@@ -1,22 +1,25 @@
 # starsigns
 # tool to understand and momorize starsigns
 # startsigns class is subclass from classes modalities and elements
+# 
+# written by
+# Andreas Schiedermeier
+# Munich, August 2019
+# aschiedermeier@gmail.com
 
 # bugs:
 
-
 # next step:
-
 
 # difficulty levels
 # ##hide all helper print commands
 
 # seperate recall_list for element
-
 # learnfactor (def 0) sigmoid learn factor (def 0.5)
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# outro and feedback
 # intro and manual
 # tip: only 3 letters as answer ok.
 # let user choose to see review first
@@ -301,7 +304,6 @@ This is not 100% perfect (Libra: September 24 – October 23), but an easy way t
 A sign is mastered, if you recall it correctly 3 times in a row.
 To type in an answer, the first 3 letters are sufficient, e.g. apr for Aril.
 
-This is my first program in Python, for feedback email to: aschiedermeier@gmail.com
 Have fun studying!
 """)
 
@@ -496,3 +498,9 @@ for sign in good_list_names:
 print("\nGrades:")
 for sign in StarsignList:
     print (sign.name, " --> Grade:", sum(sign.recall_list))
+
+print()
+print ("""Thanks for playing. :-)
+This is my first program in Python, for feedback email to: aschiedermeier@gmail.com
+Andi
+""")
