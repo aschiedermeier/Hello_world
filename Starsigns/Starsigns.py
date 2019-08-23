@@ -1,3 +1,4 @@
+
 # starsigns
 # tool to understand and momorize starsigns
 # startsigns class is subclass from classes modalities and elements
@@ -8,19 +9,25 @@
 # aschiedermeier@gmail.com
 
 # bugs:
-# novemebr is upper case, some others lower case
+# can still see stuff after clear, after reviewing stuff
 
 # next step:
-# round choice at beginning
-# if mastered none, give extra message
-# difficulty levels
-
-
+# ask for signs number first, then propose automatically default rounds
+# ask for another round if finished
+# same signs shall not be tested twice in a row
+# choose difficulty levels (lenght of recall_list)
+# class Session (recalled, rounds, how many, result)
+# class User (Session history, signsStats)
 # seperate recall_list for element
 # learnfactor (def 0) sigmoid learn factor (def 0.5)
 # simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
 # done:
+# choose standard parameters(3 signs, 12 rounds)
+# clear screen after every round, so i cant cheat. but leave result first, then clear with return
+# at end: first grades, then "you mastered all" message
+# if mastered none, give extra message
+# round choice at beginning
 # ##hide all helper print commands
 # outro and feedback
 # intro and manual
@@ -57,6 +64,24 @@
 # recall 5 times
 
 
+# function to clear screen
+# import only system from os 
+from os import system, name 
+  
+# import sleep to show output for some time period 
+from time import sleep 
+  
+# define our clear function 
+def clear(): 
+  
+    # for windows 
+    if name == 'nt': 
+        _ = system('cls') 
+  
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear') 
+
 class Element():
     ''' element class '''
     def __init__(self,name="",aspect=""):
@@ -72,7 +97,8 @@ class Element():
         else:
             long_name = "Element " + self.name + "."
             return long_name         
-
+"""
+### not needed
     def set_aspect(self,aspect):
         ''' set the the aspect of the element'''
         self.aspect = aspect
@@ -80,13 +106,10 @@ class Element():
     def set_name(self,name):
         ''' set the the name of the element'''
         self.name = name
+"""
 
-fire = Element("fire")
-fire.set_aspect("action & creativity")
-
-water = Element("water")
-water.set_aspect("emotions")
-
+fire = Element("fire","action & creativity")
+water = Element("water","emotions")
 air = Element("air","intellect")
 earth = Element ("earth","substance & practicality")
 
@@ -111,7 +134,8 @@ class Modality():
         else:
             long_name = self.name + " modality" + "." 
             return long_name.capitalize()         
-
+"""
+### not needed
     def set_power(self,power):
         ''' set the the power of the modality'''
         self.power = power
@@ -119,14 +143,10 @@ class Modality():
     def set_name(self,name):
         ''' set the the name of the modality'''
         self.name = name
+"""
 
-
-cardinal = Modality("cardinal")
-cardinal.set_power("initiation")
-
-fixed = Modality("fixed")
-fixed.set_power("sustaining")
-
+cardinal = Modality("cardinal","initiation")
+fixed = Modality("fixed","sustaining")
 mutable = Modality("mutable","change")
 
 """
@@ -199,12 +219,18 @@ class Starsign ():
         ans = ans[0:3]
         self.recalled += 1
         if ans == self.month[0:3].lower():
-            print ("Yes, it's " + self.month + "! :-)")
+            print ("Yes, it's " + self.month + "!")
+            input("\nPress 'return' for next item!\n")
+            # call clear function we defined above 
+            clear() 
             self.correct += 1
             del(self.recall_list[0])
             self.recall_list.append(1)
         else:
-            print ("No, it's " + self.month + "! :-(")
+            print ("No, it's " + self.month + "!")
+            input("\nPress 'return' for next item!\n")
+            # call clear function we defined above 
+            clear() 
             self.incorrect += 1
             del(self.recall_list[0])
             self.recall_list.append(-1)
@@ -218,12 +244,18 @@ class Starsign ():
         ans = ans[0:3]
         self.recalled += 1
         if ans == self.element.name[0:3].lower():
-            print ("Yes, it's " + self.element.name + "! :-)")
+            print ("Yes, it's " + self.element.name + "!")
+            input("\nPress 'return' for next item!\n")
+            # call clear function we defined above 
+            clear() 
             self.correct += 1
             del(self.recall_list[0])
             self.recall_list.append(1)
         else:
-            print ("No, it's " + self.element.name + "! :-(")
+            print ("No, it's " + self.element.name + "!")
+            input("\nPress 'return' for next item!\n")
+            # call clear function we defined above 
+            clear() 
             self.incorrect += 1
             del(self.recall_list[0])
             self.recall_list.append(-1)
@@ -237,12 +269,18 @@ class Starsign ():
         ans = ans[0:3]
         self.recalled += 1
         if ans == self.modality.name[0:3].lower():
-            print ("Yes, it's " + self.modality.name + "! :-)")
+            print ("Yes, it's " + self.modality.name + "!")
+            input("\nPress 'return' for next item!\n")
+            # call clear function we defined above 
+            clear()             
             self.correct += 1
             del(self.recall_list[0])
             self.recall_list.append(1)
         else:
-            print ("No, it's " + self.modality.name + "! :-(")
+            print ("No, it's " + self.modality.name + "!")
+            input("\nPress 'return' for next item!\n")
+            # call clear function we defined above 
+            clear() 
             self.incorrect += 1
             del(self.recall_list[0])
             self.recall_list.append(-1)
@@ -277,13 +315,13 @@ scorpio.set_element(water)
 sagittarius = Starsign("Sagittarius","December")
 sagittarius.set_modality(mutable)
 sagittarius.set_element(fire)
-capricorn = Starsign("Capricorn","january")
+capricorn = Starsign("Capricorn","January")
 capricorn.set_modality(cardinal)
 capricorn.set_element(earth)
-aquarius = Starsign("Aquarius","february")
+aquarius = Starsign("Aquarius","February")
 aquarius.set_modality(fixed)
 aquarius.set_element(air)
-pisces = Starsign("Pisces","march")
+pisces = Starsign("Pisces","March")
 pisces.set_modality(mutable)
 pisces.set_element(water)
 
@@ -291,13 +329,14 @@ pisces.set_element(water)
 StarsignList = [aries,taurus,gemini,cancer,leo,virgo,libra,scorpio,sagittarius,capricorn,aquarius,pisces]
 
 # Intro text
+clear()
 print ()
 print ("*"*60)
 print (" "*20, "ZODIAC TRAINER")
 print ("""Program to learn month, element and modality of the 12 western startsigns.
 
 The twelve zodiac signs are grouped into four elements with their distinct traits. 
-Each of the four elements presents a cardinal expression, a fixed expression, and a mutable expression.
+Each of the four elements has a cardinal , a fixed , and a mutable modality.
 Four elements times three modalities equals twelve distinct energy fields and therefore the twelve signs. 
 
 In this program, month means the main birthmonth until around the 20th of each starsign:
@@ -310,14 +349,13 @@ To type in an answer, the first 3 letters are sufficient, e.g. apr for Aril.
 Have fun studying!
 """)
 
-
 # Recall quiz of Starsigns using recall method
 
 # ask what to recall: month, element or modality 
 modeDict = {"mon":"month","ele":"element","mod":"modality"}
 entered = False
 while entered == False:
-    mode = input("What do you want to recall: Month, element or modality of starsign?\nRecall: ")
+    mode = input("What do you want to recall?\nMonth, element or modality: ")
     mode = mode[0:3]
     if  mode not in modeDict:
         print ("Please choose one of the 3!")
@@ -327,17 +365,34 @@ modeDict = {"mon":"month","ele":"element","mod":"modality"}
 print ("We will recall the", modeDict[mode], "of starsigns.")
 print()
 
+# ask how many rounds of recalling 
+entered = False
+while entered == False:
+    rounds = input("Recall how many rounds? 'Return' for default 20.\nMin 1: ")
+    if rounds == "":
+        rounds = 20
+    try:
+        rounds = int(rounds)
+    except ValueError:
+        print ("Error: wrong input")
+        continue
+    if  not (1 <= rounds):
+        print ("Error: the value is too low. (Min 1)")
+    else: 
+        entered = True
+print()
+
+## rounds = 20
 # ask how many Starsigns to recall (1-12)
 entered = False
 while entered == False:
+    signs = input("Recall how many Starsigns? 'Return' for default 4.\n1-12: ")
+    if signs == "":
+        signs = 4
     try:
-        signs = int(input("Recall how many Starsigns? \n1-12: "))
+        signs = int(signs)
     except ValueError:
         print ("Error: wrong input")
-        print()
-        continue
-    except : #catches ctrl-C error
-        print ("No!")
         print()
         continue
     if  not (1 <= signs <= 12):
@@ -380,7 +435,6 @@ print("\nSigns to recall:")
 for sign in StarsignList:
     print ("- " + sign.name)
 
-
 entered = False
 while entered == False:
     review = input("\nDo you want to review those starsigns first?\ny/n: ")
@@ -393,28 +447,14 @@ while entered == False:
                 print(sign.get_element())
             if mode == "mod":
                 print(sign.get_modality())
-        review = input("\nPress 'return' when your're ready!\n")
-        print("\n"*30,"No cheating! ;-)","\n"*30)
+        input("\nPress 'return' when your are ready!\n")
+        # call clear function we defined above 
+        clear() 
     else: 
         print ("Cool, let's go!")
+        clear()
     entered = True  
 print()        
-
-
-# ask how many rounds of recalling 
-entered = False
-while entered == False:
-    try:
-        rounds = int(input("Recall how many rounds?  \n1-100: "))
-    except ValueError:
-        print ("Error: wrong input")
-        continue
-    if  not (1 <= rounds <= 100):
-        print ("Error: the value is not within permitted range (1-100)")
-    else: 
-        entered = True
-print()
-## rounds = 20
 
 # recall quiz
 for r in range(rounds):
@@ -487,22 +527,30 @@ for r in range(rounds):
     
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
-        print("\nWohoo, you have mastered all", len(good_list),"items!\n" + ":-) "*9)
         break
-    
-    print()
-    
-print ("\nAfter",r+1,"rounds you have mastered the following signs:")
-for sign in good_list_names:
-    print (sign)
-    
+
+clear() 
+            
+if len(good_list_names) == 1:
+    print ("\nAfter",r+1,"rounds you have mastered the following sign:")
+    for sign in good_list_names:
+        print ("- " + sign)
+elif len(good_list_names) != 0:
+    print ("\nAfter",r+1,"rounds you have mastered the following", len(good_list), "signs:")
+    for sign in good_list_names:
+        print ("- " + sign)
+
+if len(quiz_list) == 0:
+    print("\nWohoo, you have mastered every item!")
+
 #print ("good_list:",good_list_names)
+"""
 print("\nGrades:")
 for sign in StarsignList:
     print (sign.name, " --> Grade:", sum(sign.recall_list))
+"""
 
-print()
-print ("""Thanks for playing. :-)
+print ("""\nThanks for playing. :-)
 This is my first program in Python, for feedback email to: aschiedermeier@gmail.com
 Andi
 """)
