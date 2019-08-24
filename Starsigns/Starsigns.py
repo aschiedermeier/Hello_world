@@ -9,16 +9,17 @@
 # aschiedermeier@gmail.com
 
 # bugs:
-# can still see stuff after clear, after reviewing stuff
+# can still see stuff after clear, after reviewing stuff (only on linux/mac (??))
 
 # next step:
-# overview diagram to vidualize elements, modalities and signs
+# same signs shall not be tested twice in a row
+# distance between rating shall be dependent on grade (sign could have attribute "last round tested", so i can calculate difference to acutal round)
+# # overview diagram to vidualize elements, modalities and signs
 # attribute start and enddate
 # method recall date to sign
 # recall date to sign
 # ask for signs number first, then propose automatically default rounds
 # ask for another round if finished
-# same signs shall not be tested twice in a row
 # choose difficulty levels (lenght of recall_list)
 # class Session (recalled, rounds, how many, result)
 # class User (Session history, signsStats)
