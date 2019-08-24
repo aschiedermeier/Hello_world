@@ -12,6 +12,10 @@
 # can still see stuff after clear, after reviewing stuff
 
 # next step:
+# overview diagram to vidualize elements, modalities and signs
+# attribute start and enddate
+# method recall date to sign
+# recall date to sign
 # ask for signs number first, then propose automatically default rounds
 # ask for another round if finished
 # same signs shall not be tested twice in a row
