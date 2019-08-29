@@ -576,7 +576,7 @@ for r in range(rounds):
     
     # check, if i need to add new items
     # bad_list: items in quiz_list, that are still bad (2 below max).
-    # len(bad_list) must be like initial len(quiz_list)
+    # len(bad_list) must be like initial len(quiz_list), therefore needs to be refilled, if some items get too good(1 below max or max)
     bad_list = [i.name for i in quiz_list if i.grade < i.len_recall_list-1]
     print ("bad_list:",bad_list)
     if len(bad_list) < len_quiz_list:
@@ -592,14 +592,15 @@ for r in range(rounds):
     # game over, if quiz_list is empty
     if len(quiz_list) == 0:
         if len(good_list) == len(StarsignList):
-            print ("We really finished all signs!")
+            print ("You really finished all signs!")
             break
         else:
-            print ("So many signs are left:", len(StarsignList) - len(good_list) )
+            print ("I need to fix the code, as so many signs are left:", len(StarsignList) - len(good_list) )
             break
 
 ## clear() 
-            
+
+# print out mastered signs, distinguish between one and several signs            
 if len(good_list_names) == 1:
     print ("\nAfter",r+1,"rounds you have mastered the following sign:")
     for sign in good_list_names:
