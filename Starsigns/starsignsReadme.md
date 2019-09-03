@@ -5,7 +5,7 @@ tool to understand and memorize starsigns
 defines classes for signs and elements
 https://cosmicnavigator.com/about/astrology/the-four-elements-and-three-modalities
 
-
+# classes
 class Signs:
 variants:
 methods:
@@ -14,11 +14,11 @@ input: current round
 output: 1 if can be recalled this round, else 0
 the higher the grade, the longer distance between rounds
 
+#lists
+
 
 # bugs:
-if only few signs left, after if kicked out of quiz_list and not recallable, the game ends: need excepiton for those cases,maybe in 592:
-check first if quiz_list empty, then look for those nonrecallables and put into quiz_list
-made some print lines to show if prgram really ended, oder too early, change def rounds to 30
+
 
 can still see stuff after clear, after reviewing stuff (only on linux/mac (??))
 
