@@ -427,16 +427,20 @@ while len(quiz_list) < len_quiz_list:
         quiz_list_names.append(new_sign.name)
 
 print ("quiz_list_names: ", quiz_list_names)
-print(quiz_list[0].name)
-print(quiz_list[0].grade)
-quiz_list[0].grade = 2
-print(quiz_list[0].grade)
-print(quiz_list[1].name)
-print(quiz_list[1].grade)
-quiz_list[1].grade = 3
-print(quiz_list[1].grade)
+# print(quiz_list[0].name)
+# quiz_list[0].recall_list = [0,1,1]
+# quiz_list[0].grade = 2
+# print(quiz_list[0].grade)
 
+# print(quiz_list[1].name)
+# quiz_list[1].recall_list = [1,1,1]
+# quiz_list[1].grade = 3
+# print(quiz_list[1].grade)
 
+# print(quiz_list[2].name)
+# quiz_list[2].recall_list = [1,1,1]
+# quiz_list[2].grade = 3
+# print(quiz_list[2].grade)
 
 # recall quiz
 for round in range(1,rounds+1):
@@ -484,53 +488,57 @@ for round in range(1,rounds+1):
     for i in quiz_list:
         print (i.recallable(round))
 
-    # recall_list: the final list to pick from
+    # pick_list: the final list to pick from
     # only the recallable ones from the quiz_list
 
-    recall_list = [i for i in quiz_list if i.recallable(round) == 1]
-    recall_list_names = [i.name for i in quiz_list if i.recallable(round) == 1]
-    print("recall_ist: ",recall_list_names)
+    pick_list = [i for i in quiz_list if i.recallable(round) == 1]
+    pick_list_names = [i.name for i in quiz_list if i.recallable(round) == 1]
+    print("pick_ist: ",pick_list_names)
     
     # if no recallables left, i loosen the rules step by step
-    # trying to get the most recallable
-    while len (recall_list) == 0:
-        i = 1
-        recall_list = [i for i in quiz_list if i.recallable(round+i) == 1]
-        recall_list_names = [i.name for i in quiz_list if i.recallable(round+i) == 1]
-        i += 1
+    # trying to get the most recallable sign
     
-    print("recall_ist: ",recall_list_names)        
+    r = 1
+    while len (pick_list) == 0:    
+        pick_list = [i for i in quiz_list if i.recallable(round+r) == 1]
+        pick_list_names = [i.name for i in quiz_list if i.recallable(round+r) == 1]
+        print("!!! loosened_pick_ist: ",pick_list_names, "r: ",r)
+        r += 1
+
+    print("pick_ist: ",pick_list_names)        
 
     # if no recallables left, i can't avoid doubles, so i recall from quiz_list,        
-        # recall_list = quiz_list
+        # pick_list = quiz_list
 
-    # recall random sign out of recall_list
-    i = randint(0,len(recall_list)-1) ## !!! if recall_list is empty, here comes error!!!
-    ## print ("Starsign",i+1, "out of",len(recall_list))
-    print(recall_list[i].get_recall_stats())##
+    # recall random sign out of pick_list
+    i = randint(0,len(pick_list)-1) ## !!! if pick_list is empty, here comes error!!!
+    ## print ("Starsign",i+1, "out of",len(pick_list))
+    print(pick_list[i].get_recall_stats())##
     print ("Round: ",round)
-    print ("Last_round: ",recall_list[i].last_round)
-    print ("Grade: ",recall_list[i].grade)
-    print ("Round - last_round - grade: ",round-recall_list[i].last_round-recall_list[i].grade)
-    print ("Recallable?: ",(round-recall_list[i].last_round-recall_list[i].grade)>1)
-    print ("Real Recallable?: ",recall_list[i].recallable(round))
+    print ("Last_round: ",pick_list[i].last_round)
+    print ("Grade: ",pick_list[i].grade)
+    print ("Round - last_round - grade: ",round-pick_list[i].last_round-pick_list[i].grade)
+    print ("Recallable?: ",(round-pick_list[i].last_round-pick_list[i].grade)>1)
+    print ("Real Recallable?: ",pick_list[i].recallable(round))
     print()
 
     if mode == "mon":
-        recall_list[i].recall_month(round)
+        pick_list[i].recall_month(round)
     if mode == "sig":
-        recall_list[i].recall_sign()
+        pick_list[i].recall_sign()
     if mode == "ele":
-        recall_list[i].recall_element()
+        pick_list[i].recall_element()
     if mode == "mod":
-        recall_list[i].recall_modality()
-    ## print(recall_list[i].get_recall_stats())
+        pick_list[i].recall_modality()
+    ## print(pick_list[i].get_recall_stats())
     
     #good_list: signs i learnt, if this list is as long as Starsignlist: game over
-    good_list = [i for i in StarsignList if sum(i.recall_list) == i.max_grade]
-    good_list_names = [i.name for i in StarsignList if sum(i.recall_list) == i.max_grade]
-    ## print ("good_list:",good_list_names)
-    
+    good_list = [i for i in StarsignList if i.grade == i.max_grade]
+    good_list_names = [i.name for i in StarsignList if i.grade == i.max_grade]
+    print ("good_list after round:",round,":" ,good_list_names)
+
+    print ("StarsignList: ", len(StarsignList))
+
     if len(good_list) == len(StarsignList):
         print("\nWohoo, you have mastered every item!")
         break
@@ -601,6 +609,10 @@ elif len(good_list_names) != 0:
     print ("\nAfter",round,"rounds you have mastered the following", len(good_list), "signs:")
     for sign in good_list_names:
         print ("- " + sign)
+elif len(good_list_names) == 0:
+    print ("\nAfter",round,"rounds you have achieved the following grades:")
+    for sign in good_list_names:
+        print ("- " + sign)
 
 # if len(quiz_list) == 0:
 #     print("\nWohoo, you have mastered every item!")
@@ -609,7 +621,7 @@ elif len(good_list_names) != 0:
 
 print("\nGrades:")
 for sign in StarsignList:
-    print (sign.name, " --> Grade:", sum(sign.recall_list))
+    print (sign.name, " --> Grade:", sign.grade)
 
 
 print ("""\nThanks for playing. :-)
