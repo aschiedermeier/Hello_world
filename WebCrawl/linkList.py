@@ -2,10 +2,24 @@
 # finds ph links
 # output: toList with tubeoffline links
 
+import os
+
+cwd = os.getcwd()
+print ("current dir:", cwd)    
+
+# r needed for absolute path
+path = r"C:\Users\Andi\Documents\GitHub\GitHubData\Hello_world\WebCrawl"
+
+filename = "links.txt" # short testfile
+# filename = "links_ph.txt" # long realfile
+
+# file to download with clear absolute path
+full_path = os.path.join(path, filename)
+
 # open text document with hyperlinks to ph videos
 try:
-    #stream = open("links_ph.txt", "rt") 
-    stream = open("links.txt", "rt") 
+   
+    stream = open(full_path, "rt") 
     
     # in case of success we get an object from the open() function and we assign it to the stream variable;
     a= stream.read()
