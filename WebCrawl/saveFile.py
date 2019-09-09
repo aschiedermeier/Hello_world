@@ -31,8 +31,10 @@ except Exception as exc:
     # if open() fails, we handle the exception printing full error information (it's definitely good to know what exactly happened)
     print("Cannot open the file:", exc) 
 
+# toList: list of links to tubeoffline
+# simply find all ph links with keyword "viewkey=ph
+# then cut off video code onto tubeoffline link and add to toList
 toList = []
-
 while True:
     # find ph videolink
     ph= a.find("viewkey=ph")
@@ -63,7 +65,8 @@ for l in toList:
 #url = "https://www.tubeoffline.com/downloadFrom.php?host=PornHub&video=https%3A%2F%2Fwww.pornhub.com%2Fview_video.php%3Fviewkey%3Dph5c4a47c510896"
 #url="https://www.tubeoffline.com/downloadFrom.php?host=PornHub&video=https%3A%2F%2Fwww.pornhub.com%2Fview_video.php%3Fviewkey%3Dph59a46a0f45ba8"
 
-
+# video_links: first video download link of every tubeoffline site
+# take each element of toList (a tubeoffline site)
 video_links =[]
 counter = 0
 for url in toList:
