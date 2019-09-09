@@ -4,7 +4,8 @@ import os
 cwd = os.getcwd()
 print (cwd)
 
-# no "/" create here
+# no "/" create at current working directory
+# i can change the cwd with this command: os.chdir(TARGET)
 try:
     dir = "test_no_slash/1"
     os.makedirs(dir)
