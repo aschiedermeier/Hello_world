@@ -20,8 +20,8 @@ from bs4 import BeautifulSoup
 
 # open text document with hyperlinks to ph videos
 try:
-    #stream = open("links_ph.txt", "rt") 
-    stream = open("links.txt", "rt") 
+    stream = open("links_ph.txt", "rt") 
+    #stream = open("links.txt", "rt") 
     
     # in case of success we get an object from the open() function and we assign it to the stream variable;
     a= stream.read()
