@@ -23,15 +23,15 @@ the higher the grade, the longer distance between rounds
 can still see stuff after clear, after reviewing stuff (only on linux/mac (??))
 
 # next step:
-
-same signs shall not be tested twice in a row
-overview diagram to vidualize elements, modalities and signs
 ask for signs number first, then propose automatically default rounds
+default rounds is dependent on chosen amount of starsigns, so it is possible to solve all of them (e.g. 4 signs need at least 12 rounds, so 20 would be appropriate)
+
+overview diagram at beginning to vidualize elements, modalities and signs
 ask for another round if finished
 choose difficulty levels (lenght of recall_list)
 class Session (recalled, rounds, how many, result)
 class User (Session history, signsStats)
-seperate recall_list for element
+seperate recall_list for element and modality
 learnfactor (def 0) sigmoid learn factor (def 0.5)
 simgoid learn factor: SLF= =1/(1+EXP(-LF))
 
