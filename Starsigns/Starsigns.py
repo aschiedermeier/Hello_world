@@ -331,7 +331,8 @@ modeDict = {"dat":"dates","mon":"month","ele":"element","mod":"modality"}
 if dev == False:
     entered = False
     while entered == False:
-        mode = input("What do you want to recall?\nDates, Month, element or modality: ")
+        mode = input("What do you want to recall?\nDates, month, element or modality: ")
+        mode = mode.lower() 
         mode = mode[0:3]
         if  mode not in modeDict:
             print ("Please choose one of the 4!")
